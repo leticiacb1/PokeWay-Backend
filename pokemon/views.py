@@ -29,7 +29,7 @@ def login(request):
         user_name_input = data['name']
         try:
             usuario_cadastrado = User.objects.get(name=user_name_input)
-            return Response(status=200, data = {'logged_in': True})
+            return Response(status=200, data = {'logged_in': True, 'selectedFirtsPokemon': usuario_cadastrado.selectedFirtsPokemon})
         except:
             return Response(status=404)
 
@@ -42,8 +42,9 @@ def login(request):
 def register(request):
     new_name = request.data['name']
     new_password = request.data['password']
+    new_selectedFirtsPokemon = request.data['selectedFirtsPokemon']
 
-    new_User = User(name = new_name, password = new_password)
+    new_User = User(name = new_name, password = new_password, selectedFirtsPokemon = new_selectedFirtsPokemon)
     new_User.save()
 
     return Response(status=200)
@@ -70,6 +71,28 @@ def users(request):
 
     serialized_users = UserSerializer(usuarios, many=True)
     return Response(serialized_users.data)
+
+
+# lorran users/<name>
+# /users/<name>
+@api_view(['GET', 'POST'])
+def user(request, name):
+    try:
+        usuario = User.objects.get(name = name)
+    except User.DoesNotExist:
+        raise Http404()
+    if(request.method == 'POST'):
+
+        # new_name = request.data['name']
+        # new_password = request.data['password']
+        new_selectedFirtsPokemon = request.data['selectedFirtsPokemon']
+        usuario.selectedFirtsPokemon = new_selectedFirtsPokemon;
+        usuario.save()
+
+    serialized_user = UserSerializer(usuario)
+    return Response(serialized_user.data)
+
+#####
 
 
 # para os pokemons

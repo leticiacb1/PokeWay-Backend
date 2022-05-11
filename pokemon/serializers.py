@@ -5,7 +5,7 @@ from .models import User, Pokemon
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['name','password']
+        fields = ['name','password', 'selectedFirtsPokemon']
 
 class PokemonSerializer(serializers.ModelSerializer):
     class Meta:
