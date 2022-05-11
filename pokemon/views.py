@@ -1,14 +1,14 @@
 from django.http import HttpResponse
-from numpy import logical_and, logical_not
+# from numpy import logical_and, logical_not
 from pkg_resources import get_supported_platform
-from requests import put
+#from requests import put
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import Http404
-from .models import User
+from .models import User, Pokemon
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, PokemonSerializer
 
 
 
@@ -71,5 +71,41 @@ def users(request):
     serialized_users = UserSerializer(usuarios, many=True)
     return Response(serialized_users.data)
 
+
+# para os pokemons
+
+# /pokemons/
+@api_view(['GET'])
+def pokemons(request):
+    try:
+        pokemons = Pokemon.objects.all()
+    except Pokemon.DoesNotExist:
+        raise Http404()
+
+    serialized_pokemons = PokemonSerializer(pokemons, many=True)
+    return Response(serialized_pokemons.data)
+
+# /game/
+@api_view(['POST'])
+def includePokemon(request):
+    new_id = request.data['id']
+    new_idUser = User.objects.get(name =  request.data['idUser'])
+    new_name = request.data['name']
+    new_type = request.data['type']
+    new_move1 = request.data['move1']
+    new_move2 = request.data['move2']
+    new_move3 = request.data['move3']
+    new_srcImg = request.data['srcImg']
+    new_favorite = request.data['favorite']
+
+    new_Pokemon = Pokemon(id = new_id, idUser = new_idUser, name = new_name, type = new_type, move1 = new_move1, move2 = new_move2, move3 = new_move3, srcImg = new_srcImg, favorite = new_favorite)
+    new_Pokemon.save()
+
+    return Response(status=200)
+
+
 def index(request):
     return HttpResponse("Olá mundo! Este é o app notes de Tecnologias Web do Insper.")
+
+
+
