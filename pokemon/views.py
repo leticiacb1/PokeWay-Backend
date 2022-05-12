@@ -108,6 +108,18 @@ def pokemons(request):
     serialized_pokemons = PokemonSerializer(pokemons, many=True)
     return Response(serialized_pokemons.data)
 
+# /pokemons/<name>/
+@api_view(['GET'])
+def getUserPokemons(request, name):
+    try:
+        usuario = User.objects.get(name = name)
+        pokemons = Pokemon.objects.filter(idUser = usuario)
+    except User.DoesNotExist:
+        raise Http404()
+
+    serialized_pokemons = PokemonSerializer(pokemons, many=True)
+    return Response(serialized_pokemons.data)
+
 # /game/
 @api_view(['POST'])
 def includePokemon(request):
