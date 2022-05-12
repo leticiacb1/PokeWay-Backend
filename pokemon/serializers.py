@@ -1,12 +1,12 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import Pokemon, User
+from .models import User, Pokemon
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['name','password']
+        fields = ['name','password', 'selectedFirtsPokemon']
 
 class PokemonSerializer(serializers.ModelSerializer):
     class Meta:
