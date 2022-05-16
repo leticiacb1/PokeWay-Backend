@@ -16,8 +16,13 @@ class Pokemon(models.Model):
     move1 = models.CharField(max_length=100)
     move2 = models.CharField(max_length=100)
     move3 = models.CharField(max_length=100)
-    srcImg = models.CharField(max_length=300)
     favorite = models.BooleanField(default=False)
+
+    srcImg = models.CharField(max_length=300)
+    srcImgBack = models.CharField(max_length=300)
+
+    hp = models.CharField(max_length=100)
+    level = models.CharField(max_length=100)
 
     def __str__(self):
         return '%s - idUser : %s' % (self.id, self.idUser)

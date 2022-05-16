@@ -86,7 +86,7 @@ def user(request, name):
         # new_name = request.data['name']
         # new_password = request.data['password']
         new_selectedFirtsPokemon = request.data['selectedFirtsPokemon']
-        usuario.selectedFirtsPokemon = new_selectedFirtsPokemon;
+        usuario.selectedFirtsPokemon = new_selectedFirtsPokemon
         usuario.save()
 
     serialized_user = UserSerializer(usuario)
@@ -130,10 +130,15 @@ def includePokemon(request):
     new_move1 = request.data['move1']
     new_move2 = request.data['move2']
     new_move3 = request.data['move3']
-    new_srcImg = request.data['srcImg']
     new_favorite = request.data['favorite']
 
-    new_Pokemon = Pokemon(id = new_id, idUser = new_idUser, name = new_name, type = new_type, move1 = new_move1, move2 = new_move2, move3 = new_move3, srcImg = new_srcImg, favorite = new_favorite)
+    new_srcImg = request.data['srcImg']
+    new_srcImgBack = request.data['srcImgBack']
+    
+    new_HP = request.data['hp']
+    new_level = request.data['level']
+
+    new_Pokemon = Pokemon(id = new_id, idUser = new_idUser, name = new_name, type = new_type, move1 = new_move1, move2 = new_move2, move3 = new_move3, srcImg = new_srcImg, favorite = new_favorite , srcImgBack=new_srcImgBack, hp=new_HP, level=new_level)
     new_Pokemon.save()
 
     return Response(status=200)
