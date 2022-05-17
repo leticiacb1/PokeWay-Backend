@@ -133,7 +133,10 @@ def getUserPokemon(request, name, pokename):
     if(request.method == 'GET'):
         serialized_pokemonBattle = PokemonSerializer(pokemon)
         return Response(serialized_pokemonBattle.data)
-
+    elif (request.method == 'POST'):
+        pokemon.level = request.data['level']
+        pokemon.save()
+        return Response(status=200)
     #  Por o post aqui para atualizar o xp do pokemon.
 
 # /game/
