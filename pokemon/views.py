@@ -120,6 +120,22 @@ def getUserPokemons(request, name):
     serialized_pokemons = PokemonSerializer(pokemons, many=True)
     return Response(serialized_pokemons.data)
 
+# /pokemons/<name>/<pokename>
+@api_view(['GET','POST'])
+def getUserPokemon(request, name, pokename):
+    try:
+        pokemonId = str(pokename) + str(name)
+        pokemon = Pokemon.objects.get(id = pokemonId)
+
+    except User.DoesNotExist:
+        raise Http404()
+
+    if(request.method == 'GET'):
+        serialized_pokemonBattle = PokemonSerializer(pokemon)
+        return Response(serialized_pokemonBattle.data)
+
+    #  Por o post aqui para atualizar o xp do pokemon.
+
 # /game/
 @api_view(['POST'])
 def includePokemon(request):
