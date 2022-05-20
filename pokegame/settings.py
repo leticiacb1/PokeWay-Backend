@@ -27,7 +27,6 @@ SECRET_KEY = 'django-insecure-sy5t4%w*aq6^es-q#1fyot%=cox)ohaj(d!^c_-hj6x#39zep7
 DEBUG = False
 
 ALLOWED_HOSTS = ['pokeway.herokuapp.com', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = []
 
 
 # Application definition
