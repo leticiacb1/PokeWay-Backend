@@ -64,6 +64,8 @@ python manage.py runserver
 
 > ### Acessando projeto via web (Aplicação Heroku)
 
+( Desatualizado - Necessitando migração )
+
 1. Apenas clique <a href = "https://pokeway.herokuapp.com/">aqui</a>.
 
 <p align="center"><img src='https://thumbs.gfycat.com/LivelyBraveAmericanriverotter-size_restricted.gif'></img></p>
